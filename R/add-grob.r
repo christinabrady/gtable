@@ -1,4 +1,4 @@
-#' Add a single grob, possibly spanning multiple rows or columns.
+#' Add grobs, possibly spanning multiple rows or columns.
 #' 
 #' This only adds grobs into the table - it doesn't affect the table in 
 #' any way.  In the gtable model, grobs always fill up the complete table
@@ -20,7 +20,7 @@
 #' @param name name of the grob - used to modify the grob name before it's
 #'   plotted.
 #' @export
-gtable_add_grob <- function(x, grobs, t, l, b = t, r = l, z = Inf, clip = "on", name = x$name) 
+gtable_add_grobs <- function(x, grobs, t, l, b = t, r = l, z = Inf, clip = "on", name = x$name) 
 {
   stopifnot(is.gtable(x))
   if (is.grob(grobs)) grobs <- list(grobs)
@@ -67,3 +67,7 @@ gtable_add_grob <- function(x, grobs, t, l, b = t, r = l, z = Inf, clip = "on", 
   
   x
 }
+
+## alias for historical compatibility
+#' @export 
+gtable_add_grob <- gtable_add_grobs
