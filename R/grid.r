@@ -22,10 +22,10 @@ vpname <- function(row) {
   paste(row$name, ".", row$t, "-", row$r, "-", row$b, "-", row$l, sep = "")
 }
 
-#' @S3method widthDetails gtable
+#' @export
 widthDetails.gtable <- function(x) absolute.size(gtable_width(x))
 
-#' @S3method heightDetails gtable
+#' @export
 heightDetails.gtable <- function(x) absolute.size(gtable_height(x))
 
 makeContext.gtable <- function(x) {

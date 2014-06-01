@@ -6,7 +6,7 @@
 #' @export
 #' @examples
 #' gt <- gtable(unit(1, "null"), unit(1, "null"))
-#' gt <- gtable_add_grob(gt, rectGrob(gp = gpar(fill = "black")), 1, 1)
+#' gt <- gtable_add_grobs(gt, rectGrob(gp = gpar(fill = "black")), 1, 1)
 #'
 #' plot(gt)
 #' plot(cbind(gt, gt))

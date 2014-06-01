@@ -48,7 +48,7 @@ NULL
 #' }
 #' 
 #' You should not need to modify this data frame directly - instead use
-#' functions like \code{gtable_add_grob}.
+#' functions like \code{gtable_add_grobs}.
 #'
 #' @param widths a numeric or unit vector giving the width of each column
 #' @param heights a numeric or unit vector giving the height of each row
@@ -76,7 +76,7 @@ NULL
 #'
 #' # Add a grob:
 #' rect <- rectGrob(gp = gpar(fill = "black"))
-#' a <- gtable_add_grob(a, rect, 1, 1)
+#' a <- gtable_add_grobs(a, rect, 1, 1)
 #' a
 #' plot(a)
 #' 
@@ -89,7 +89,7 @@ NULL
 #' # rows/columns that retained.
 #' 
 #' b <- gtable(unit(c(2, 2, 2), "cm"), unit(c(2, 2, 2), "cm"))
-#' b <- gtable_add_grob(b, rect, 2, 2)
+#' b <- gtable_add_grobs(b, rect, 2, 2)
 #' b[1, ]
 #' b[, 1]
 #' b[2, 2]
@@ -173,13 +173,13 @@ print.gtable <- function(x, zsort = FALSE, ...) {
 }
 
 
-#' @S3method dim gtable
+#' @export
 dim.gtable <- function(x) c(length(x$heights), length(x$widths))
 
-#' @S3method dimnames gtable
+#' @export
 dimnames.gtable <- function(x, ...) list(x$rownames, x$colnames)
 
-#' @S3method dimnames<- gtable
+#' @export
 "dimnames<-.gtable" <- function(x, value) {
   x$rownames <- value[[1]]
   x$colnames <- value[[2]]
@@ -192,7 +192,7 @@ dimnames.gtable <- function(x, ...) list(x$rownames, x$colnames)
   x
 }
 
-#' @S3method plot gtable
+#' @export
 plot.gtable <- function(x, ...) {
   grid.newpage()
   grid.rect(gp = gpar(fill = "grey95"))
@@ -209,7 +209,7 @@ is.gtable <- function(x) {
   inherits(x, "gtable")
 }
 
-#' @S3method t gtable
+#' @export
 t.gtable <- function(x) {
   new <- x
   
@@ -224,7 +224,7 @@ t.gtable <- function(x) {
   new
 }
 
-#' @S3method [ gtable
+#' @export
 "[.gtable" <- function(x, i, j) {
   # Convert indicies to (named) numeric
   rows <- setNames(seq_along(x$heights), rownames(x))[i]
@@ -255,7 +255,7 @@ t.gtable <- function(x) {
   x
 }
 
-#' @S3method length gtable
+#' @export
 length.gtable <- function(x) length(x$grobs)
 
 #' Returns the height of a gtable, in the gtable's units

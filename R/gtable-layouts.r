@@ -1,7 +1,7 @@
 #' Create a single column gtable.
 #'
 #' @inheritParams gtable
-#' @inheritParams gtable_add_grob
+#' @inheritParams gtable_add_grobs
 #' @param width a unit vector giving the width of this column
 #' @param vp a grid viewport object (or NULL).
 #' @export
@@ -27,7 +27,7 @@ gtable_col <- function(name, grobs, width = NULL, heights = NULL,
   
   table <- gtable_add_rows(table, heights)
   table <- gtable_add_cols(table, width)
-  table <- gtable_add_grob(table, grobs, t = seq_along(grobs), l = 1, 
+  table <- gtable_add_grobs(table, grobs, t = seq_along(grobs), l = 1, 
     z = z, clip = "off")
   
   table
@@ -36,7 +36,7 @@ gtable_col <- function(name, grobs, width = NULL, heights = NULL,
 #' Create a single row gtable.
 #'
 #' @inheritParams gtable
-#' @inheritParams gtable_add_grob
+#' @inheritParams gtable_add_grobs
 #' @param height a unit vector giving the height of this row
 #' @param vp a grid viewport object (or NULL).
 #' @export
@@ -62,7 +62,7 @@ gtable_row <- function(name, grobs, height = NULL, widths = NULL,
 
   table <- gtable_add_cols(table, widths)
   table <- gtable_add_rows(table, height)
-  table <- gtable_add_grob(table, grobs, l = seq_along(grobs), t = 1,
+  table <- gtable_add_grobs(table, grobs, l = seq_along(grobs), t = 1,
     z = z, clip = "off")
   
   table
@@ -72,7 +72,7 @@ gtable_row <- function(name, grobs, height = NULL, widths = NULL,
 #'
 #' @export
 #' @inheritParams gtable
-#' @inheritParams gtable_add_grob
+#' @inheritParams gtable_add_grobs
 #' @param z a numeric matrix of the same dimensions as \code{grobs},
 #'   specifying the order that the grobs are drawn.
 #' @param vp a grid viewport object (or NULL).
@@ -107,7 +107,7 @@ gtable_matrix <- function(name, grobs, widths = NULL, heights = NULL,
   table <- gtable_add_cols(table, widths)
   table <- gtable_add_rows(table, heights)
   
-  table <- gtable_add_grob(table, grobs, t = c(row(grobs)), l = c(col(grobs)),
+  table <- gtable_add_grobs(table, grobs, t = c(row(grobs)), l = c(col(grobs)),
     z = as.vector(z), clip = clip)
 
   table

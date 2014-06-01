@@ -8,9 +8,9 @@
 #' @examples
 #' rect <- rectGrob(gp = gpar(fill = "#00000080"))
 #' tab <- gtable(unit(rep(1, 3), "null"), unit(rep(1, 3), "null"))
-#' tab <- gtable_add_grob(tab, rect, t = 1, l = 1, r = 3)
-#' tab <- gtable_add_grob(tab, rect, t = 1, b = 3, l = 1)
-#' tab <- gtable_add_grob(tab, rect, t = 1, b = 3, l = 3)
+#' tab <- gtable_add_grobs(tab, rect, t = 1, l = 1, r = 3)
+#' tab <- gtable_add_grobs(tab, rect, t = 1, b = 3, l = 1)
+#' tab <- gtable_add_grobs(tab, rect, t = 1, b = 3, l = 3)
 #' dim(tab)
 #' plot(tab)
 #'
@@ -49,9 +49,9 @@ gtable_add_rows <- function(x, heights, pos = -1) {
 #' @examples
 #' rect <- rectGrob(gp = gpar(fill = "#00000080"))
 #' tab <- gtable(unit(rep(1, 3), "null"), unit(rep(1, 3), "null"))
-#' tab <- gtable_add_grob(tab, rect, t = 1, l = 1, r = 3)
-#' tab <- gtable_add_grob(tab, rect, t = 1, b = 3, l = 1)
-#' tab <- gtable_add_grob(tab, rect, t = 1, b = 3, l = 3)
+#' tab <- gtable_add_grobs(tab, rect, t = 1, l = 1, r = 3)
+#' tab <- gtable_add_grobs(tab, rect, t = 1, b = 3, l = 1)
+#' tab <- gtable_add_grobs(tab, rect, t = 1, b = 3, l = 3)
 #' dim(tab)
 #' plot(tab)
 #'
