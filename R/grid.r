@@ -28,6 +28,7 @@ widthDetails.gtable <- function(x) absolute.size(gtable_width(x))
 #' @export
 heightDetails.gtable <- function(x) absolute.size(gtable_height(x))
 
+#' @export
 makeContext.gtable <- function(x) {
     layoutvp <- viewport(layout = gtable_layout(x), name = x$name)
     if (is.null(x$vp)) {
@@ -38,6 +39,7 @@ makeContext.gtable <- function(x) {
     x
 }
 
+#' @export
 makeContent.gtable <- function(x) {
     children_vps <- mapply(child_vp,
                            vp_name = vpname(x$layout),
@@ -50,6 +52,7 @@ makeContent.gtable <- function(x) {
     setChildren(x, do.call("gList", x$grobs[order(x$layout$z)]))
 }
 
+#' @export
 makeContext.gTableChild <- function(x) {
     if (is.null(x$vp)) {
         x$vp <- x$wrapvp
