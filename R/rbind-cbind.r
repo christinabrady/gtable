@@ -39,8 +39,8 @@ rbind_gtable <- function(x, y, size = "max") {
   x$widths <- switch(size,
     first = x$widths,
     last = y$widths,
-    min = compare.unit(x$widths, y$widths, pmin),
-    max = compare.unit(x$widths, y$widths, pmax)
+    min = pmin(x$widths, y$widths),
+    max = pmax(x$widths, y$widths)
   )
 
   x$grobs <- append(x$grobs, y$grobs)
@@ -75,8 +75,8 @@ cbind_gtable <- function(x, y, size = "max") {
   x$heights <- switch(size,
     first = x$heights,
     last = y$heights,
-    min = compare.unit(x$heights, y$heights, pmin),
-    max = compare.unit(x$heights, y$heights, pmax)
+    min = pmin(x$heights, y$heights),
+    max = pmax(x$heights, y$heights)
   )
 
   x$grobs <- append(x$grobs, y$grobs)
