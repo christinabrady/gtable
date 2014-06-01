@@ -38,7 +38,6 @@ gtable_add_grobs(x, grobs, t, l, b = t, r = l, z = Inf, clip = "on",
 }
 \description{
 This only adds grobs into the table - it doesn't affect the table in
-any way.  In the gtable model, grobs always fill up the complete table
-cell.  If you want custom justification you might need to
+any way.
 }
 

@@ -5,10 +5,10 @@
 gtable_show_layout <- function(x) {
   stopifnot(is.gtable(x))
 
-  grid.show.layout(gtable_layout(x))
+  grid.show.layout(gtable_grid_layout(x))
 }
 
-gtable_layout <- function(x) {
+gtable_grid_layout <- function(x) {
   stopifnot(is.gtable(x))
 
   grid.layout(
@@ -30,7 +30,7 @@ heightDetails.gtable <- function(x) absolute.size(gtable_height(x))
 
 #' @export
 makeContext.gtable <- function(x) {
-    layoutvp <- viewport(layout = gtable_layout(x), name = x$name)
+    layoutvp <- viewport(layout = gtable_grid_layout(x), name = x$name)
     if (is.null(x$vp)) {
         x$vp <- layoutvp
     } else {
