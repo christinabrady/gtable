@@ -15,7 +15,7 @@ NULL
 #' @rdname bind
 #' @method rbind gtable
 #' @export
-rbind.gtable <- function(..., size = "max", z = NULL) {
+rbind.gtable <- function(..., size = "pmax", z = NULL) {
   gtables <- list(...)
   if (!is.null(z)) {
     gtables <- z_arrange_gtables(gtables, z)
@@ -23,7 +23,7 @@ rbind.gtable <- function(..., size = "max", z = NULL) {
   Reduce(function(x, y) rbind_gtable(x, y, size = size), gtables)
 }
 
-rbind_gtable <- function(x, y, size = "max") {
+rbind_gtable <- function(x, y, size = "pmax") {
   stopifnot(ncol(x) == ncol(y))
   if (nrow(x) == 0) return(y)
   if (nrow(y) == 0) return(x)
@@ -55,7 +55,7 @@ rbind_gtable <- function(x, y, size = "max") {
 #' @rdname bind
 #' @method cbind gtable
 #' @export
-cbind.gtable <- function(..., size = "max", z = NULL) {
+cbind.gtable <- function(..., size = "pmax", z = NULL) {
   gtables <- list(...)
   if (!is.null(z)) {
     gtables <- z_arrange_gtables(gtables, z)
@@ -63,7 +63,7 @@ cbind.gtable <- function(..., size = "max", z = NULL) {
   Reduce(function(x, y) cbind_gtable(x, y, size = size), gtables)
 }
 
-cbind_gtable <- function(x, y, size = "max") {
+cbind_gtable <- function(x, y, size = "pmax") {
   stopifnot(nrow(x) == nrow(y))
   if (ncol(x) == 0) return(y)
   if (ncol(y) == 0) return(x)
