@@ -5,9 +5,9 @@
 \alias{rbind.gtable}
 \title{Row and column binding for gtables.}
 \usage{
-\method{rbind}{gtable}(..., size = "max", z = NULL)
+\method{rbind}{gtable}(..., size = "pmax", z = NULL)
 
-\method{cbind}{gtable}(..., size = "max", z = NULL)
+\method{cbind}{gtable}(..., size = "pmax", z = NULL)
 }
 \arguments{
   \item{...}{gtables to combine (\code{x} and \code{y})}
