@@ -6,11 +6,11 @@ Author: Hadley Wickham <h.wickham@gmail.com>
 Authors@R: c(person("Hadley", "Wickham",
     email = "h.wickham@gmail.com",
     role = c("aut", "cre")),
+    person("Kohske", "Takahashi",
+    role = c("ctb")),
     person("Baptiste", "Auguie",
-    email = "baptiste.auguie@gmail.com",
     role = c("ctb")),
     person("Paul", "Murrell",
-    email = "paul@stat.auckland.ac.nz",
     role = c("ctb")))
 Description: Tools to make it easier to work with "tables" of grobs. A tabular
     layout is described by rectangular cells defining grid viewports, graphical
