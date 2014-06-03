@@ -108,8 +108,6 @@ gtable_arrange <- function(..., grobs=list(), as.table=TRUE,
 gtable_from_layout <- function(grobs, mat, 
                                widths = NULL, heights = NULL, ...){
   
-  stopifnot(is.integer(mat))
-  
   if(is.null(widths))
     widths <- unit(rep(1, ncol(mat)), "null")
   if(is.null(heights))
@@ -127,7 +125,7 @@ gtable_from_layout <- function(grobs, mat,
       b=max(ind[,"row"]))
   }
   
-  glayout <- do.call(rbind, lapply(cells, range_cell))
+  glayout <- data.frame(do.call(rbind, lapply(cells, range_cell)))
   gt <- gtable(widths = widths, heights = heights, ...)
   
   with(glayout, gtable_add_grobs(gt, grobs, t=t, l=l, b=b, r=r))
