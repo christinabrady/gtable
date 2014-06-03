@@ -1,13 +1,16 @@
 #' Graphical display of a textual table.
 #'
 #' @param d data.frame or matrix
-#' @param colour label colours
-#' @param fill cell background colours
+#' @param fg.par control parameters for text grobs
+#' @param bg.par control parameters for rect grobs
+#' @param padding unit of length 2
 #' @export
 #' @examples
 #' \donttest{
 #' d <- head(iris, 3)
-#' core <- gtable_table(d, 1:5)
+#' core <- gtable_table(d, 
+#'                      fg.par = list(col=1:5, fontsize=c(10,12,15)),
+#'                      bg.par = list(fill=1:2, alpha=0.5))
 #' colhead <- gtable_table(t(colnames(d)))
 #' rowhead <- gtable_table(c("", rownames(d)))
 #' g <- rbind(colhead, core)
@@ -15,7 +18,10 @@
 #' grid.newpage()
 #' grid.draw(g)
 #' }
-gtable_table <- function(d, colour = "black", fill = NA){
+gtable_table <- function(d, 
+                         fg.par = list(col = "black"),
+                         bg.par = list(fill = NA),
+                         padding = unit(c(4, 4), "mm")){
   
   label_matrix <- as.matrix(d)
   
@@ -23,17 +29,18 @@ gtable_table <- function(d, colour = "black", fill = NA){
   nr <- nrow(label_matrix)
   n <- nc*nr
   
-  colour <- rep(colour, length.out = n)
-  fill <- rep(fill, length.out = n)
+  fg.par <- lapply(fg.par, rep, length.out = n)
+  bg.par <- lapply(bg.par, rep, length.out = n)
   
-  ## text for each cell
-  labels <- lapply(seq_len(n), function(ii) 
-    textGrob(label_matrix[ii], gp=gpar(col=colour[ii])))
-  label_grobs <- matrix(labels, ncol=nc)
+  fg.param <- data.frame(fg.par, label = as.vector(label_matrix), 
+                         stringsAsFactors=FALSE)
+  bg.param <- data.frame(bg.par, id = seq_len(n),
+                         stringsAsFactors=FALSE)
   
-  ## define the fill background of cells
-  fill <- lapply(seq_len(n), function(ii) 
-    rectGrob(gp=gpar(fill=fill[ii])))
+  labels <- mlply(fg.param, cell_content)
+  backgrounds <- mlply(bg.param, cell_background)
+  
+  label_grobs <- matrix(labels, ncol = nc)
   
   ## some calculations of cell sizes
   row_heights <- function(m){
@@ -48,15 +55,39 @@ gtable_table <- function(d, colour = "black", fill = NA){
   
   ## place labels in a gtable
   g <- gtable_matrix("table", grobs=label_grobs, 
-                     widths=col_widths(label_grobs) + unit(4,"mm"), 
-                     heights=row_heights(label_grobs) + unit(4,"mm"))
+                     widths=col_widths(label_grobs) + padding[1], 
+                     heights=row_heights(label_grobs) + padding[2])
   
   ## add the background
-  g <- gtable_add_grob(g, fill, t=rep(seq_len(nr), each=nc), 
+  g <- gtable_add_grob(g, backgrounds, t=rep(seq_len(nr), each=nc), 
                        l=rep(seq_len(nc), nr), z=0, name="fill")
   
   g
 }
 
+
+cell_content <- function(...){
+  dots <- list(...)
+  gpar.names <- c("col", "cex", "fontsize", "lineheight", 
+                 "font", "fontfamily", "alpha")
+  other.names <- c("label", "hjust", "vjust", "rot")
+  gpar.args <- dots[intersect(names(dots), gpar.names)]
+  gp <- do.call(gpar, gpar.args)
+  other.args <- dots[intersect(names(dots), other.names)]
+  do.call(textGrob, c(other.args, list(gp = gp)))
+
+}
+
+cell_background <- function(...){
+  
+  dots <- list(...)
+  gpar.names <- c("fill", "col", "lty", "lwd", "cex", "alpha",
+                  "lineend", "linejoin", "linemitre", 
+                  "lex")
+  gpar.args <- dots[intersect(names(dots), gpar.names)]
+  gp <- do.call(gpar, gpar.args)
+  do.call(rectGrob, list(gp = gp))
+  
+}
 
 
