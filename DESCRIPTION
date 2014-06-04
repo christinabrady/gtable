@@ -18,10 +18,10 @@ Description: Tools to make it easier to work with "tables" of grobs. A tabular
     functions are provided to alter the layout (merge, bind, reshape, extract),
     add and remove grobs, and draw the resulting table.
 Depends:
-    R (>= 2.14),
+    R (>= 3.2.0),
     grid
 Imports:
-    plyr (>= 1.7.1)
+    plyr
 Suggests:
     testthat
 License: GPL-2

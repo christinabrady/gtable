@@ -1,6 +1,8 @@
 #' Graphical display of a textual table.
 #'
 #' @param d data.frame or matrix
+#' @param widths optional vector to specify column widths
+#' @param heights optional vector to specify row heights
 #' @param fg.par control parameters for text grobs
 #' @param bg.par control parameters for rect grobs
 #' @param padding unit of length 2
@@ -17,8 +19,11 @@
 #' g <- cbind(rowhead, g)
 #' grid.newpage()
 #' grid.draw(g)
+#' g2 <- gtable_table(t(colnames(d)), widths = unit(rep(1, ncol(d)), "null"))
+#' grid.newpage()
+#' grid.draw(g)
 #' }
-gtable_table <- function(d, 
+gtable_table <- function(d, widths, heights,
                          fg.par = list(col = "black"),
                          bg.par = list(fill = NA),
                          padding = unit(c(4, 4), "mm")){
@@ -37,8 +42,8 @@ gtable_table <- function(d,
   bg.param <- data.frame(bg.par, id = seq_len(n),
                          stringsAsFactors=FALSE)
   
-  labels <- mlply(fg.param, cell_content)
-  backgrounds <- mlply(bg.param, cell_background)
+  labels <- plyr::mlply(fg.param, cell_content)
+  backgrounds <- plyr::mlply(bg.param, cell_background)
   
   label_grobs <- matrix(labels, ncol = nc)
   
@@ -53,10 +58,15 @@ gtable_table <- function(d,
       max(do.call(unit.c, lapply(l, grobWidth)))))
   }
   
+  if(missing(widths))
+    widths <- col_widths(label_grobs) + padding[1]
+  if(missing(heights))
+    heights <- row_heights(label_grobs) + padding[2]
+  
   ## place labels in a gtable
   g <- gtable_matrix("table", grobs=label_grobs, 
-                     widths=col_widths(label_grobs) + padding[1], 
-                     heights=row_heights(label_grobs) + padding[2])
+                     widths = widths, 
+                     heights = heights)
   
   ## add the background
   g <- gtable_add_grob(g, backgrounds, t=rep(seq_len(nr), each=nc), 
