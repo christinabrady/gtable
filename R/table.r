@@ -79,8 +79,8 @@ gtable_table <- function(d, widths, heights,
 cell_content <- function(...){
   dots <- list(...)
   gpar.names <- c("col", "cex", "fontsize", "lineheight", 
-                 "font", "fontfamily", "alpha")
-  other.names <- c("label", "hjust", "vjust", "rot")
+                 "font", "fontfamily", "fontface", "alpha")
+  other.names <- c("label", "hjust", "vjust", "rot", "x", "y")
   gpar.args <- dots[intersect(names(dots), gpar.names)]
   gp <- do.call(gpar, gpar.args)
   other.args <- dots[intersect(names(dots), other.names)]
